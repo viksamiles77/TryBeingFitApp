@@ -11,7 +11,7 @@ namespace Models
         public DateTime StartTime { get; set; }
         public DateTime? EndTime { get; set; } // video trainings can be null (we can watch them anytime).
 
-        public Trainer AssignerTrainer { get; set; }
+        public Trainer AssignedTrainer { get; set; }
 
         public Training(string title, string description, TrainingTypeEnum type, int rating, DateTime startTime, DateTime? endTime, Trainer assignerTrainer)
         {
@@ -21,7 +21,7 @@ namespace Models
             Rating = 0; // default / starting rating
             StartTime = startTime;
             EndTime = endTime;
-            AssignerTrainer = assignerTrainer;
+            AssignedTrainer = assignerTrainer;
         }
     }
 }

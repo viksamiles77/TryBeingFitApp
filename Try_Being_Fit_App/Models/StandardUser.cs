@@ -5,7 +5,7 @@ namespace Models
     public class StandardUser : User
     {
         public int TrainingsAttended { get; set; }
-        public StandardUser(int id, string firstName, string lastName, string username, string password, UserRoleEnum role, int trainingsAttended) : base(id, firstName, lastName, username, password, role)
+        public StandardUser(int id, string firstName, string lastName, string username, string password, int trainingsAttended) : base(id, firstName, lastName, username, password, UserRoleEnum.Standard)
         {
             TrainingsAttended = 0;
         }

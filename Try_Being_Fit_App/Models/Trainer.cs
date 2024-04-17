@@ -4,9 +4,9 @@ namespace Models
 {
     public class Trainer : User
     {
-        public List<Training> ScheduledTrainings { get; set; };
-        public Trainer(int id, string firstName, string lastName, string username, string password, UserRoleEnum role, List<Training> scheduledTrainings)
-            : base(id, firstName, lastName, username, password, role)
+        public List<Training> ScheduledTrainings { get; set; }
+        public Trainer(int id, string firstName, string lastName, string username, string password, List<Training> scheduledTrainings)
+            : base(id, firstName, lastName, username, password, UserRoleEnum.Trainer)
         {
             ScheduledTrainings = new List<Training>();
         }
