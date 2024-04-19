@@ -1,10 +1,6 @@
 ﻿using Models;
-using Models.Enums;
 using Services.Interfaces;
-using DataAccess.Storage;
 using DataAccess;
-using System.Data.SqlTypes;
-using System.Net.Http.Headers;
 
 namespace Services.Implementations
 {
@@ -51,9 +47,9 @@ namespace Services.Implementations
                 );
 
 
-            StandardUsers.Delete(standardUser);
+            Storage.StandardUsers.Delete(standardUser);
 
-            PremiumUsers.Add(premiumUser);
+            Storage.PremiumUsers.Add(premiumUser);
 
             Console.WriteLine("Upgrade to premium successful.");
         }

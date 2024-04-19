@@ -1,10 +1,18 @@
-﻿namespace Try_Being_Fit_App
+﻿using Services;
+using Services.Interfaces;
+using DataAccess;
+using Models;
+using Services.Implementations;
+
+namespace Try_Being_Fit_App
 {
     internal class Program
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello, World!");
+            IUIService uiService = new UIService();
+
+            uiService.ShowMenu();
         }
     }
 }

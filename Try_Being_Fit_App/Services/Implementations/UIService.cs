@@ -1,5 +1,5 @@
 ﻿using Services.Interfaces;
-using Services.Implementations;
+using DataAccess;
 
 namespace Services.Implementations
 {
@@ -14,14 +14,31 @@ namespace Services.Implementations
 
         public void Login()
         {
-            Console.WriteLine("Please Log In!");
-            Console.Write("Username: ");
-            var username = Console.ReadLine();
+            while (true)
+            {
+                try
+                {
+                    Console.WriteLine("Please Log In!");
+                    Console.Write("Username: ");
+                    var username = Console.ReadLine();
 
-            Console.Write("Password: ");
-            var password = Console.ReadLine();
+                    Console.Write("Password: ");
+                    var password = Console.ReadLine();
 
-            _userService.Login(username, password);
+                    _userService.Login(username, password);
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.WriteLine($"Sucessfull Login! Welcome {CurrentSession.CurrentUser.FirstName} - [{CurrentSession.CurrentUser.Role}]");
+                    Console.ForegroundColor = ConsoleColor.White;
+                    break;
+                }
+                catch (Exception ex)
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine(ex.Message);
+                    Console.WriteLine("Please try again!");
+                    Console.ForegroundColor = ConsoleColor.White;
+                }
+            }
         }
 
         public void Register()
@@ -59,7 +76,34 @@ namespace Services.Implementations
 
         public void ShowMenu()
         {
-            throw new NotImplementedException();
+            string choosedOption;
+            if (CurrentSession.CurrentUser == null)
+            {
+                Console.WriteLine("Choose an option! (1 or 2)");
+                Console.WriteLine("1. Login \n2.Register");
+                while (true)
+                {
+                    choosedOption = Console.ReadLine();
+                    if (choosedOption == "1" || choosedOption == "2")
+                    {
+                        break;
+                    }
+                    else
+                    {
+                        Console.WriteLine("Invalid input, please select 1 or 2");
+                    }
+                }
+                if (choosedOption == "1")
+                {
+                    Login();
+                    return;
+                }
+                else if (choosedOption == "2")
+                {
+                    Register();
+                    return;
+                }
+            }
         }
     }
 }

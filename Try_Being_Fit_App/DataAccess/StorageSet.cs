@@ -8,21 +8,6 @@ namespace DataAccess
 
         public void Add(T entity)
         {
-            if (entity.Id != 0)
-            {
-                throw new Exception("For adding new item, the Id needs to be set to 0");
-            }
-
-            if (Items.Any())
-            {
-                int max = Items.Max(x => x.Id);
-                entity.Id = max + 1;
-            }
-            else
-            {
-                entity.Id = 1;
-            }
-
             Items.Add(entity);
         }
 

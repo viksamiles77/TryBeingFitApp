@@ -11,7 +11,7 @@ namespace DataAccess
         public static StorageSet<Trainer> Trainers = new StorageSet<Trainer>();
         public static StorageSet<User> Users { get; set; } = new StorageSet<User>()
         {
-            Items = new List<User>() { new Trainer(1, "Trainer", "Trainer", "trainer", "trainer123", ScheduledTraining) }
+            Items = new List<User>() { new Trainer(1, "Viktor", "Mileski", "viksa", "trainer123", ScheduledTraining) }
         };
     }
 }
