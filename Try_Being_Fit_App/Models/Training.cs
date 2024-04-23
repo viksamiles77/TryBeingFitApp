@@ -13,7 +13,7 @@ namespace Models
 
         public Trainer AssignedTrainer { get; set; }
 
-        public Training(string title, string description, TrainingTypeEnum type, int rating, DateTime startTime, DateTime? endTime, Trainer assignerTrainer)
+        public Training(string title, string description, TrainingTypeEnum type, int rating, DateTime startTime, DateTime? endTime, Trainer assignedTrainer)
         {
             Title = title;
             Description = description;
@@ -21,7 +21,7 @@ namespace Models
             Rating = 0; // default / starting rating
             StartTime = startTime;
             EndTime = endTime;
-            AssignedTrainer = assignerTrainer;
+            AssignedTrainer = assignedTrainer;
         }
     }
 }

@@ -23,7 +23,7 @@ namespace Services.Implementations
         }
 
 
-        public void Register(int id, string firstName, string lastName, string username, string password)
+        public StandardUser Register(int id, string firstName, string lastName, string username, string password)
         {
             if (Storage.StandardUsers.GetAll().Any(x => x.Username == username) ||
                 Storage.PremiumUsers.GetAll().Any(x => x.Username == username) ||
@@ -33,9 +33,10 @@ namespace Services.Implementations
             }
             var newUser = new StandardUser(id, firstName, lastName, username, password, 0);
             Storage.StandardUsers.Add(newUser);
+            return newUser;
         }
 
-        public void UpgradeToPremium(StandardUser standardUser)
+        public PremiumUser UpgradeToPremium(StandardUser standardUser)
         {
             PremiumUser premiumUser = new PremiumUser(
                 standardUser.Id,
@@ -51,13 +52,22 @@ namespace Services.Implementations
 
             Storage.PremiumUsers.Add(premiumUser);
 
+            Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("Upgrade to premium successful.");
+            Console.ForegroundColor = ConsoleColor.White;
+
+            return premiumUser;
         }
         public int RandomIdGenerator()
         {
             Random random = new Random();
             return random.Next(1, 1000);
 
+        }
+
+        public void LogOut()
+        {
+            CurrentSession.CurrentUser = null;
         }
     }
 }
