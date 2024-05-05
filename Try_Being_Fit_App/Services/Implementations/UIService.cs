@@ -31,7 +31,19 @@ namespace Services.Implementations
                     Console.ForegroundColor = ConsoleColor.Green;
                     Console.WriteLine($"Sucessfull Login! Welcome {CurrentSession.CurrentUser.FirstName}.");
                     Console.ForegroundColor = ConsoleColor.White;
-                    TrainerMenu();
+                    if (CurrentSession.CurrentUser is StandardUser)
+                    {
+                        StandardUserMenu();
+                    }
+                    else if (CurrentSession.CurrentUser is PremiumUser)
+                    {
+                        PremiumUserMenu();
+                    }
+                    else if (CurrentSession.CurrentUser is Trainer)
+                    {
+                        TrainerMenu();
+                    }
+
                     break;
                 }
                 catch (Exception ex)
@@ -260,6 +272,40 @@ namespace Services.Implementations
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("You have done a training!");
             Console.ForegroundColor = ConsoleColor.White;
+            AskForRating();
+            if (CurrentSession.CurrentUser is StandardUser)
+            {
+                StandardUserMenu();
+            }
+            else if (CurrentSession.CurrentUser is PremiumUser)
+            {
+                PremiumUserMenu();
+            }
+            else if (CurrentSession.CurrentUser is Trainer)
+            {
+                TrainerMenu();
+            }
+            _registeredUser.TrainingsAttended ++;
+        }
+
+        public void AskForRating()
+        {
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.WriteLine("Please leave a rating for the training!");
+            Console.ForegroundColor = ConsoleColor.White;
+            while (true)
+            {
+                string input = Console.ReadLine();
+                if (int.TryParse(input, out int number))
+                {
+                    Console.WriteLine($"You gave a rating of: [{number}]");
+                    break;
+                }
+                else
+                {
+                    Console.WriteLine("Invalid input. Please enter a valid number.");
+                }
+            }
         }
 
         public void LogOut()

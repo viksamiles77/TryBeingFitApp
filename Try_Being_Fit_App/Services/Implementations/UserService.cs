@@ -9,17 +9,21 @@ namespace Services.Implementations
     {
         public void Login(string username, string password)
         {
-            var loginUser = Storage.Users.GetAll().FirstOrDefault(x => x.Username == username);
-            if (loginUser == null)
+            var standardUser = Storage.StandardUsers.GetAll().FirstOrDefault(x => x.Username == username);
+            if (standardUser != null && standardUser.CheckPassword(password))
             {
-                throw new Exception("User not found");
+                CurrentSession.CurrentUser = standardUser;
+                return;
             }
-            if (!loginUser.CheckPassword(password))
-            {
-                throw new Exception("Wrong password!");
-            };
 
-            CurrentSession.CurrentUser = loginUser;
+            var premiumUser = Storage.PremiumUsers.GetAll().FirstOrDefault(x => x.Username == username);
+            if (premiumUser != null && premiumUser.CheckPassword(password))
+            {
+                CurrentSession.CurrentUser = premiumUser;
+                return;
+            }
+
+            throw new Exception("User not found or wrong password!");
         }
 
 
